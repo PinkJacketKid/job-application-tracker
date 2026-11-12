@@ -31,8 +31,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for j in jobs %}
-				<tr></tr>
+				{% for job in jobs %}
+				<tr>
+					<td>{{ job.id }}</td>
+					<td>{{ job.title }}</td>
+				</tr>
 			</tbody>
 		</table>
 	</main>
