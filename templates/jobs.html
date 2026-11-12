@@ -19,18 +19,21 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Job ID</th>
-					<th>Title</th>
-					<th>Company</th>
-					<th>Type</th>
-					<th>Salary Minimum</th>
-					<th>Salary Maximum</th>
-					<th>Requirements</th>
-					<th>URL</th>
-					<th>Date Posted</th>
+					<th scope="col">Job ID</th>
+					<th scope="col">Title</th>
+					<th scope="col">Company</th>
+					<th scope="col">Type</th>
+					<th scope="col">Salary Minimum</th>
+					<th scope="col">Salary Maximum</th>
+					<th scope="col">Requirements</th>
+					<th scope="col">URL</th>
+					<th scope="col">Date Posted</th>
 				</tr>
 			</thead>
-			<tbody></tbody>
+			<tbody>
+				{% for j in jobs %}
+				<tr></tr>
+			</tbody>
 		</table>
 	</main>
 </body>
