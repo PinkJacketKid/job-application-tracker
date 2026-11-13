@@ -12,6 +12,52 @@
 		<h1>Job Form</h1>
 	</header>
 
-	<main></main>
+	<main>
+        <a href="{{ url_for('jobs') }}" class="btn btn-secondary">Back</a>
+        <form method="POST">
+            <label for="job_title">Job Title</label>
+            <input type="text" id="job_title" name="job_title" value="{{ job.job_title if job else '' }}" placeholder="Java Developer" required>
+
+            <label>Company</label>
+            <select name="company_id">
+                <option value="">— Select Company —</option>
+                {% for company in companies %}
+                <option value="{{ c.company_id }}">
+                    {{ company.company_name }}
+                </option>
+                {% endfor %}
+            </select>
+
+          <label>Job Type</label>
+          <select name="job_type">
+            <option value="">— Select Job Type —</option>
+            {% for type in ['Full-time','Part-time','Contract','Internship'] %}
+            <option value="{{ type }}">{{ type }}</option>
+            { % endfor % }
+          </select>
+
+          <label>Salary Minimum</label>
+          <input type="number" name="salary_min" value="{{ job.salary_min if job else '' }}" placeholder="60000">
+
+          <label>Salary Maximum</label>
+          <input type="number" name="salary_max" value="{{ job.salary_max if job else '' }}" placeholder="90000">
+
+          <label>Job URL</label>
+          <input type="url" name="job_url" value="{{ job.job_url if job else '' }}">
+
+          <label>Date Posted</label>
+          <input type="date" name="date_posted" value="{{ job.date_posted.strftime('%Y-%m-%d') if job and job.date_posted else '' }}">
+
+          <label>Required Skills</label>
+          <input type="text" name="requirements" value="{{ job.requirements_str if job else '' }}" placeholder="Python, SQL, Flask">
+          <div class="form-hint">Comma-separated list of required skills</div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{ url_for('jobs') }}" class="btn btn-secondary">Cancel</a>
+          </div>
+
+        </form>
+    </main>
 </body>
 </html>
