@@ -112,6 +112,8 @@ def create_job(data):
     
     except Error as error:
         print(f'Database error in create_job: {error}')
+        if cursor is not None:
+            connection.rollback()
         return []
 
     finally:
@@ -152,6 +154,8 @@ def update_job(job_id, data):
     
     except Error as error:
         print(f'Database error in update_job: {error}')
+        if cursor is not None:
+            connection.rollback()
         return []
 
     finally:
@@ -179,7 +183,9 @@ def delete_job(job_id):
         connection.commit()
     
     except Error as error:
-        print(f'Database error in get_job: {error}')
+        print(f'Database error in delete_job: {error}')
+        if cursor is not None:
+            connection.rollback()
         return []
 
     finally:
