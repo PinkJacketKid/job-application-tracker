@@ -7,8 +7,8 @@ def get_connection():
         connection = mysql.connector.connect(
             user='root',
             password='root',
-            host='127.0.0.1',
-            database='job_tracker'
+            host='127.0.0.2',
+            database='job_tracker_project'
         )
 
         return connection
@@ -27,7 +27,7 @@ def get_all_jobs():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        all_jobs_query = ('SELECT jobs.job_id, jobs.job_title, companies.company_name, jobs.job_type, jobs.salary_min, jobs.salary_max, jobs.requirements, jobs.posting_url, jobs.date_posted FROM jobs INNER JOIN companies ON jobs.company_id = companies.company_id ORDER BY jobs.job_id, jobs.date_posted')
+        all_jobs_query = ('SELECT jobs.job_id, jobs.job_title, companies.company_name, jobs.job_type, jobs.salary_min, jobs.salary_max, jobs.requirements, jobs.job_url, jobs.date_posted FROM jobs INNER JOIN companies ON jobs.company_id = companies.company_id ORDER BY jobs.job_id, jobs.date_posted')
 
         cursor.execute(all_jobs_query)
 

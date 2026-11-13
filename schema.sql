@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS job_tracker;
-USE job_tracker;
+CREATE DATABASE IF NOT EXISTS job_tracker_project;
+USE job_tracker_project;
 
 CREATE TABLE IF NOT EXISTS companies (
     company_id INT AUTO_INCREMENT PRIMARY KEY,
