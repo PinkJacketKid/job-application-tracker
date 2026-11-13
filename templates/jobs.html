@@ -16,6 +16,7 @@
 	<nav></nav>
 
 	<main>
+		<a class="btn btn-primary" href="addjob">Add Job</a>
 		<table>
 			<thead>
 				<tr>
@@ -28,6 +29,7 @@
 					<th scope="col">Requirements</th>
 					<th scope="col">URL</th>
 					<th scope="col">Date Posted</th>
+					<th scop="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -53,6 +55,15 @@
 					</td>
 					<td>{{ job.job_url }}</td>
 					<td>{{ job.date_posted }}</td>
+					<td>
+						<div class="td-actions">
+            				<a href="{{ url_for('update_job', job_id=job.job_id) }}" class="btn btn-secondary btn-sm">Edit</a>
+            				<button class="btn btn-danger btn-sm" 
+							onclick="confirmDelete('{{ url_for('delete_job', job_id=job.job_id) }}', '{{ job.job_title }}')">
+              					Delete
+            				</button>
+          				</div>
+					</td>
 				</tr>
 				{% endfor %}
 			</tbody>
