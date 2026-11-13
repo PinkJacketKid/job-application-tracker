@@ -59,7 +59,7 @@
 						<div class="td-actions">
             				<a href="{{ url_for('update_job', job_id=job.job_id) }}" class="btn btn-secondary btn-sm">Edit</a>
             				<button class="btn btn-danger btn-sm" 
-							onclick="confirmDelete('{{ url_for('delete_job', job_id=job.job_id) }}', '{{ job.job_title }}')">
+							onclick="confirmDelete('{{ url_for(delete_job, job_id=job.job_id) }}', '{{ job.job_title }}')">
               					Delete
             				</button>
           				</div>
