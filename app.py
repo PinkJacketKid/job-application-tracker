@@ -6,7 +6,7 @@ import json
 app = Flask(__name__)
 
 def parse_json(req_json):
-    """Parse requirements JSON field into a list."""
+    """Parse JSON field into a list."""
     if not req_json:
         return []
     if isinstance(req_json, list):

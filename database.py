@@ -17,25 +17,36 @@ def get_connection():
         return False
 
 def get_all_jobs():
+    connection = None
+    cursor = None
+
     try:
         connection = get_connection()
-        cursor = connection.cursor()
-        all_jobs_query = ('SELECT job_id, job_title, company_name, job_type, salary_min, salary_max, '
-                          'requirements, job_url, date_posted'
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        all_jobs_query = ('SELECT jobs.job_id, jobs.job_title, companies.company_name, jobs.job_type, jobs.salary_min, jobs.salary_max, '
+                          'jobs.requirements, jobs.job_url, jobs.date_posted'
                           'FROM jobs'
-                          'INNER JOIN companies ON jobs.company_id = companies.company_id'
-                          'ORDER BY job_id, date_posted')
+                          'INNER JOIN companies ON jobs.company_id = companies.company_id '
+                          'ORDER BY jobs.job_id, jobs.date_posted')
 
         cursor.execute(all_jobs_query)
 
         result = cursor.fetchall()
+        print(result)
 
         return result
     
     except Error as error:
-        print(f'Error: {error}')
+        print(f'Database error in get_all_jobs: {error}')
+        return []
 
     finally:
-        if 'connection' in locals() and connection.is_connected():
+        if cursor is not None:
             cursor.close()
+
+        if connection is not None and connection.is_connected():
             connection.close()
