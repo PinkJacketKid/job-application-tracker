@@ -27,7 +27,7 @@ def get_all_jobs():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        all_jobs_query = ('SELECT jobs.job_id, jobs.job_title, companies.company_name, jobs.job_type, jobs.salary_min, jobs.salary_max, jobs.requirements, jobs.job_url, jobs.date_posted FROM jobs INNER JOIN companies ON jobs.company_id = companies.company_id ORDER BY jobs.job_id, jobs.date_posted')
+        all_jobs_query = ('SELECT job_id, job_title, company_name, job_type, salary_min, salary_max, requirements, job_url, date_posted FROM jobs INNER JOIN companies ON jobs.company_id = companies.company_id ORDER BY job_id, date_posted')
 
         cursor.execute(all_jobs_query)
 
