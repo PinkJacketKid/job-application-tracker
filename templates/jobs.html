@@ -39,7 +39,18 @@
 					<td>{{ job.job_type }}</td>
 					<td>{{ job.salary_min }}</td>
 					<td>{{ job.salary_max }}</td>
-					<td></td>
+					<td>
+						<div class="tag-list">
+            				{% for skill in (job.requirements_list or []) %}
+              					{% if loop.index <= 4 %}
+                					<span class="tag">{{ skill }}</span>
+              					{% endif %}
+            				{% endfor %}
+            				{% if (job.requirements_list or [])|length > 4 %}
+              					<span class="tag">+{{ (job.requirements_list|length) - 4 }}</span>
+            				{% endif %}
+          				</div>
+					</td>
 					<td>{{ job.job_url }}</td>
 					<td>{{ job.date_posted }}</td>
 				</tr>
