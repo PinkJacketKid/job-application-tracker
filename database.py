@@ -194,3 +194,35 @@ def delete_job(job_id):
 
         if connection is not None and connection.is_connected():
             connection.close()
+
+def get_all_companies():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        all_companies_query = ('SELECT * FROM companies ORDER BY company_id, company_name')
+
+        cursor.execute(all_companies_query)
+
+        result = cursor.fetchall()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_all_companies: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
