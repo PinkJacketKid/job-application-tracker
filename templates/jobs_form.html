@@ -12,7 +12,7 @@
         <select name="company_id">
             <option value="">— Select Company —</option>
             {% for company in companies %}
-            <option value="{{ c.company_id }}">
+            <option value="{{ company.company_id }}">
                 {{ company.company_name }}
             </option>
             {% endfor %}
@@ -23,7 +23,7 @@
             <option value="">— Select Job Type —</option>
             {% for type in ['Full-time','Part-time','Contract','Internship'] %}
             <option value="{{ type }}">{{ type }}</option>
-            { % endfor % }
+            {% endfor %}
         </select>
 
         <label>Salary Minimum</label>

@@ -62,7 +62,17 @@ def get_job(job_id):
         cursor = connection.cursor(dictionary=True)
         one_job_query = ('SELECT job_id, job_title, company_name, job_type, salary_min, salary_max, requirements, job_url, date_posted FROM jobs INNER JOIN companies ON jobs.company_id = companies.company_id WHERE job_id = %s')
 
-        cursor.execute(one_job_query, job_id)
+        # For debugging
+        # print(job_id)
+        # print("job_id type: ", type(job_id))
+
+        job_id_list = [job_id]
+
+        # For debugging
+        # print(job_id_list)
+        # print("job_id type: ", type(job_id_list))
+        
+        cursor.execute(one_job_query, job_id_list)
 
         result = cursor.fetchone()
         # Print result is for debugging
@@ -104,9 +114,9 @@ def create_job(data):
                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                         """)
 
-        cursor.execute(insert_job_query, data.get('company_id'), data['job_title'], data.get('job_type'),
+        cursor.execute(insert_job_query, (data.get('company_id'), data['job_title'], data.get('job_type'),
           data.get('salary_min') or None, data.get('salary_max') or None,
-          data.get('job_url'), data.get('date_posted') or None, requireds)
+          data.get('job_url'), data.get('date_posted') or None, requireds))
 
         connection.commit()
     
@@ -146,9 +156,9 @@ def update_job(job_id, data):
                             job_url=%s, date_posted=%s, requirements=%s WHERE job_id=%s
                         """)
 
-        cursor.execute(update_job_query, data.get('company_id'), data['job_title'], data.get('job_type'),
+        cursor.execute(update_job_query, (data.get('company_id'), data['job_title'], data.get('job_type'),
           data.get('salary_min') or None, data.get('salary_max') or None,
-          data.get('job_url'), data.get('date_posted') or None, requireds, job_id)
+          data.get('job_url'), data.get('date_posted') or None, requireds, job_id))
 
         connection.commit()
     
@@ -178,7 +188,17 @@ def delete_job(job_id):
         cursor = connection.cursor(dictionary=True)
         delete_job_query = ('DELETE FROM jobs WHERE job_id = %s')
 
-        cursor.execute(delete_job_query, job_id)
+        # For debugging
+        # print(job_id)
+        # print("job_id type: ", type(job_id))
+
+        job_id_list = [job_id]
+
+        # For debugging
+        # print(job_id_list)
+        #print("job_id type: ", type(job_id_list))
+
+        cursor.execute(delete_job_query, job_id_list)
 
         connection.commit()
     
@@ -212,7 +232,7 @@ def get_all_companies():
 
         result = cursor.fetchall()
         # Print result is for debugging
-        print(result)
+        # print(result)
 
         return result
     

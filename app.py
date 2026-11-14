@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify, f
 import mysql.connector
 import database as db
 import json
+import os
 
 app = Flask(__name__)
+app.secret_key = os.urandom(12).hex()
 
 def parse_json(req_json):
     """Parse JSON field into a list."""
