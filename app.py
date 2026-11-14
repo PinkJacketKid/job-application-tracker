@@ -84,5 +84,45 @@ def delete_job(job_id):
         flash(f'Error: {str(e)}', 'danger')
     return redirect(url_for('jobs'))
 
+@app.route('/companies')
+def companies():
+    companies = db.get_all_companies()
+    return render_template('companies.html', companies = companies)
+
+@app.route('/companies/add', methods=['GET', 'POST'])
+def add_company():
+    if request.method == 'POST':
+        try:
+            db.create_company(request.form)
+            flash('Company added successfully!', 'success')
+            return redirect(url_for('companies'))
+        except Exception as e:
+            flash(f'Error: {str(e)}', 'danger')
+    return render_template('company_form.html', company=None, action='Add')
+
+@app.route('/companies/edit/<int:company_id>', methods=['GET', 'POST'])
+def edit_company(company_id):
+    company = db.get_company(company_id)
+    if not company:
+        flash('Company not found.', 'danger')
+        return redirect(url_for('companies'))
+    if request.method == 'POST':
+        try:
+            db.update_company(company_id, request.form)
+            flash('Company updated successfully!', 'success')
+            return redirect(url_for('companies'))
+        except Exception as e:
+            flash(f'Error: {str(e)}', 'danger')
+    return render_template('company_form.html', company=company, action='Edit')
+
+@app.route('/companies/delete/<int:company_id>', methods=['POST'])
+def delete_company(company_id):
+    try:
+        db.delete_company(company_id)
+        flash('Company deleted.', 'success')
+    except Exception as e:
+        flash(f'Error: {str(e)}', 'danger')
+    return redirect(url_for('companies'))
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -17,6 +17,7 @@ def get_connection():
         print(f'Connection error: {e}')
         return False
 
+# Jobs CRUD functions
 def get_all_jobs():
     connection = None
     cursor = None
@@ -70,7 +71,7 @@ def get_job(job_id):
 
         # For debugging
         # print(job_id_list)
-        # print("job_id type: ", type(job_id_list))
+        # print("job_id_list type: ", type(job_id_list))
 
         cursor.execute(one_job_query, job_id_list)
 
@@ -196,7 +197,7 @@ def delete_job(job_id):
 
         # For debugging
         # print(job_id_list)
-        #print("job_id type: ", type(job_id_list))
+        #print("job_id_list type: ", type(job_id_list))
 
         cursor.execute(delete_job_query, job_id_list)
 
@@ -215,6 +216,7 @@ def delete_job(job_id):
         if connection is not None and connection.is_connected():
             connection.close()
 
+# Companies CRUD functions
 def get_all_companies():
     connection = None
     cursor = None
@@ -238,6 +240,160 @@ def get_all_companies():
     
     except Error as error:
         print(f'Database error in get_all_companies: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def get_company(company_id):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        one_company_query = ('SELECT * FROM companies WHERE company_id = %s')
+
+        # For debugging
+        # print(company_id)
+        # print("company_id type: ", type(company_id))
+
+        company_id_list = [company_id]
+
+        # For debugging
+        # print(company_id_list)
+        # print("company_id_list type: ", type(company_id_list))
+
+        cursor.execute(one_company_query, company_id_list)
+
+        result = cursor.fetchone()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_company: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def create_company(data):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+
+        insert_company_query = ("""
+                            INSERT INTO companies (company_name, industry, website, city, state, notes)
+                            VALUES (%s, %s, %s, %s, %s, %s)
+                        """)
+
+        cursor.execute(insert_company_query, (data['company_name'], data.get('industry'),
+          data.get('website') or None, data.get('city'),
+          data.get('state'), data.get('notes') or None))
+
+        connection.commit()
+    
+    except Error as error:
+        print(f'Database error in create_company: {error}')
+        if cursor is not None:
+            connection.rollback()
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def update_company(company_id, data):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+
+        update_company_query = ("""
+                            UPDATE companies SET company_name=%s, industry=%s, website=%s, city=%s,
+                            state=%s, notes=%s WHERE company_id=%s
+                        """)
+
+        cursor.execute(update_company_query, (data['company_name'], data.get('industry'),
+          data.get('website') or None, data.get('city'),
+          data.get('state'), data.get('notes') or None, company_id))
+
+        connection.commit()
+    
+    except Error as error:
+        print(f'Database error in update_company: {error}')
+        if cursor is not None:
+            connection.rollback()
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def delete_company(company_id):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        delete_company_query = ('DELETE FROM companies WHERE company_id = %s')
+
+        # For debugging
+        # print(company_id)
+        # print("company_id type: ", type(company_id))
+
+        company_id_list = [company_id]
+
+        # For debugging
+        # print(job_id_list)
+        #print("job_id_list type: ", type(job_id_list))
+
+        cursor.execute(delete_company_query, company_id_list)
+
+        connection.commit()
+    
+    except Error as error:
+        print(f'Database error in delete_company: {error}')
+        if cursor is not None:
+            connection.rollback()
         return []
 
     finally:
