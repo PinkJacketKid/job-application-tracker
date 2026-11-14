@@ -1,74 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Jobs</title>
-	<link rel = "stylesheet" href = "../static/style.css">
-</head>
 
-<body>
-	<header>
-		<h1>Jobs</h1>
-	</header>
+{% extends "base.html" %}
+{% block title %}Jobs{% endblock %}
+{% block page_title %}<h1>Jobs</h1>{% endblock %}
 
-	<!-- Will make navigation menu later -->
-	<nav></nav>
-
-	<main>
-		<a class="btn btn-primary" href="addjob">Add Job</a>
-		<table>
-			<thead>
-				<tr>
-					<th scope="col">Job ID</th>
-					<th scope="col">Title</th>
-					<th scope="col">Company</th>
-					<th scope="col">Type</th>
-					<th scope="col">Salary Minimum</th>
-					<th scope="col">Salary Maximum</th>
-					<th scope="col">Requirements</th>
-					<th scope="col">URL</th>
-					<th scope="col">Date Posted</th>
-					<th scop="col">Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for job in jobs %}
-				<tr>
-					<td>{{ job.job_id }}</td>
-					<td>{{ job.job_title }}</td>
-					<td>{{ job.company_name }}</td>
-					<td>{{ job.job_type }}</td>
-					<td>{{ job.salary_min }}</td>
-					<td>{{ job.salary_max }}</td>
-					<td>
-						<div class="tag-list">
-            				{% for skill in (job.requirements_list or []) %}
-              					{% if loop.index <= 4 %}
-                					<span class="tag">{{ skill }}</span>
-              					{% endif %}
-            				{% endfor %}
-            				{% if (job.requirements_list or [])|length > 4 %}
-              					<span class="tag">+{{ (job.requirements_list|length) - 4 }}</span>
-            				{% endif %}
-          				</div>
-					</td>
-					<td>{{ job.job_url }}</td>
-					<td>{{ job.date_posted }}</td>
-					<td>
-						<div class="td-actions">
-            				<a href="{{ url_for('update_job', job_id=job.job_id) }}" class="btn btn-secondary btn-sm">Edit</a>
-            				<button class="btn btn-danger btn-sm" 
-							onclick="confirmDelete('{{ url_for(delete_job, job_id=job.job_id) }}', '{{ job.job_title }}')">
-              					Delete
-            				</button>
-          				</div>
-					</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</main>
-</body>
-
-</html>
+{% block content %}
+	<a href="{{ url_for('add_job') }}" class="btn btn-primary">Add Job</a>
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Job ID</th>
+				<th scope="col">Title</th>
+				<th scope="col">Company</th>
+				<th scope="col">Type</th>
+				<th scope="col">Salary Minimum</th>
+				<th scope="col">Salary Maximum</th>
+				<th scope="col">Requirements</th>
+				<th scope="col">URL</th>
+				<th scope="col">Date Posted</th>
+				<th scop="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for job in jobs %}
+			<tr>
+				<td>{{ job.job_id }}</td>
+				<td>{{ job.job_title }}</td>
+				<td>{{ job.company_name }}</td>
+				<td>{{ job.job_type }}</td>
+				<td>{{ job.salary_min }}</td>
+				<td>{{ job.salary_max }}</td>
+				<td>
+					<div class="tag-list">
+            			{% for skill in (job.requirements_list or []) %}
+              				{% if loop.index <= 4 %}
+                				<span class="tag">{{ skill }}</span>
+              				{% endif %}
+            			{% endfor %}
+            			{% if (job.requirements_list or [])|length > 4 %}
+              				<span class="tag">+{{ (job.requirements_list|length) - 4 }}</span>
+            			{% endif %}
+          			</div>
+				</td>
+				<td>{{ job.job_url }}</td>
+				<td>{{ job.date_posted }}</td>
+				<td>
+					<div class="td-actions">
+            			<a href="{{ url_for('update_job', job_id=job.job_id) }}" class="btn btn-secondary btn-sm">Edit</a>
+            			<button class="btn btn-danger btn-sm" 
+						onclick="confirmDelete('{{ url_for(delete_job, job_id=job.job_id) }}', '{{ job.job_title }}')">
+              				Delete
+            			</button>
+          			</div>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
