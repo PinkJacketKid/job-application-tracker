@@ -45,10 +45,10 @@
 				<td>{{ job.date_posted }}</td>
 				<td>
 					<div class="td-actions">
-            			<a href="{{ url_for('update_job', job_id=job.job_id) }}" class="btn btn-secondary btn-sm">Edit</a>
-            			<button class="btn btn-danger btn-sm" 
-						onclick="confirmDelete('{{ url_for(delete_job, job_id=job.job_id) }}', '{{ job.job_title }}')">
-              				Delete
+            			<a href="{{ url_for('edit_job', job_id=job.job_id) }}" class="btn btn-secondary btn-sm">Edit</a>
+            			<button class="btn btn-danger btn-sm"
+              				onclick="confirmDelete('{{ url_for('delete_job', job_id=j.job_id) }}', '{{ j.job_title }}')">
+              					Delete
             			</button>
           			</div>
 				</td>
