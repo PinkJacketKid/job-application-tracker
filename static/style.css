@@ -1,0 +1,49 @@
+
+
+/* Base button class */
+.btn {
+    cursor: pointer;
+}
+
+/* Add the other button stylings later */
+
+/* Modal stylings */
+.modal-overlay {
+    /* need to add background color */
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+.modal-overlay.show { opacity: 1; pointer-events: all; }
+
+.modal-card {
+    /* need to add background color */
+    padding: 28px;
+    max-width: 380px;
+    width: 90%;
+    transform: scale(0.95);
+    transition: transform 0.2s;
+}
+
+.modal-overlay.show .modal-card { transform: scale(1); }
+
+.modal-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.modal-body {
+    font-size: 0.85rem;
+    margin-bottom: 22px;
+    line-height: 1.6;
+}
+
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
