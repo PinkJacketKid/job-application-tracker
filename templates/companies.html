@@ -1,3 +1,44 @@
 {% extends "base.html" %}
 {% block title %}Companies{% endblock %}
 {% block page_title %}Companies{% endblock %}
+
+{% block content %}
+	<a href="{{ url_for('add_company') }}" class="btn btn-primary">Add Company</a>
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Company ID</th>
+				<th scope="col">Name</th>
+				<th scope="col">Industry</th>
+				<th scope="col">Website</th>
+				<th scope="col">City</th>
+				<th scope="col">State</th>
+				<th scope="col">Notes</th>
+				<th scop="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for company in companies %}
+				<tr>
+					<td>{{ company.company_id }}</td>
+					<td>{{ company.company_name }}</td>
+					<td>{{ company.industry }}</td>
+					<td>{{ company.website }}</td>
+					<td>{{ company.city }}</td>
+					<td>{{ company.state }}</td>
+					<td>{{ company.notes }}</td>
+					<td>
+						<div class="td-actions">
+            				<a href="{{ url_for('edit_company', company_id=company.company_id) }}" class="btn btn-secondary btn-sm">Edit</a>
+						
+            				<button class="btn btn-danger btn-sm"
+              					onclick="confirmDelete('{{ url_for('delete_company', company_id=company.company_id) }}', '{{ company.company_name }}')">
+              						Delete
+            				</button>
+          				</div>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
