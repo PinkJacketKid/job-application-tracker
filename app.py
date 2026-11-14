@@ -51,7 +51,7 @@ def add_job():
         except Exception as e:
             flash(f'Error: {str(e)}', 'danger')
 
-    return render_template('job_form.html', job=None, companies=companies, action='Add')
+    return render_template('jobs_form.html', job=None, companies=companies, action='Add')
 
 @app.route('/jobs/edit/<int:job_id>', methods=['GET', 'POST'])
 def edit_job(job_id):
@@ -71,7 +71,7 @@ def edit_job(job_id):
             flash(f'Error: {str(e)}', 'danger')
             
     job['requirements_str'] = ', '.join(parse_json(job.get('requirements')))
-    return render_template('job_form.html', job=job, companies=companies, action='Edit')
+    return render_template('jobs_form.html', job=job, companies=companies, action='Edit')
 
 @app.route('/jobs/delete/<int:job_id>', methods=['POST'])
 def delete_job(job_id):
