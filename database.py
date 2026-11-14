@@ -71,7 +71,7 @@ def get_job(job_id):
         # For debugging
         # print(job_id_list)
         # print("job_id type: ", type(job_id_list))
-        
+
         cursor.execute(one_job_query, job_id_list)
 
         result = cursor.fetchone()
