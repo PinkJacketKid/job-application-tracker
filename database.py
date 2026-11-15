@@ -435,3 +435,5 @@ def get_all_applications():
 
         if connection is not None and connection.is_connected():
             connection.close()
+
+# Contacts CRUD functions
