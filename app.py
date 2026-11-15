@@ -126,7 +126,7 @@ def delete_company(company_id):
 
 @app.route('/applications')
 def applications():
-    applications = db.get_applications_jobs()
+    applications = db.get_all_applications()
     for application in applications:
         application['interview_data_list'] = parse_json(application.get('interview_data'))
     return render_template('applications.html', applications = applications)
