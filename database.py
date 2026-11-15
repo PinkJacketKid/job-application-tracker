@@ -415,7 +415,7 @@ def get_all_applications():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        all_applications_query = ('SELECT application_id, jobs.job_title, companies.company_name, staus, application_date, resume_version, cover_letter_sent, interview_data FROM applications INNER JOIN ON applications.job_id = jobs.job_id INNER JOIN ON companies.company_id = jobs.company_id ORDER BY application_id, application_date')
+        all_applications_query = ('SELECT application_id, jobs.job_title, companies.company_name, staus, application_date, resume_version, cover_letter_sent, interview_data FROM applications LEFT JOIN ON applications.job_id = jobs.job_id LEFT JOIN ON companies.company_id = jobs.company_id ORDER BY application_id, application_date')
 
         cursor.execute(all_applications_query)
 
