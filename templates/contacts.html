@@ -1,9 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Contacts</title>
-	<link rel = "stylesheet" href = "../static/style.css">
-</head>
-</html>
+
+{% extends "base.html" %}
+{% block title %}Contacts{% endblock %}
+{% block page_title %}Contacts{% endblock %}
+
+{% block content %}
+	<a href="{{ url_for('add_contact') }}" class="btn btn-primary">Add Job</a>
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Contact ID</th>
+				<th scope="col">Name</th>
+				<th scope="col">Company</th>
+				<th scope="col">Title</th>
+				<th scope="col">Email</th>
+				<th scope="col">Phone</th>
+				<th scope="col">LinkedIn URL</th>
+				<th scope="col">Notes</th>
+				<th scop="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for contact in contacts %}
+			<tr>
+				<td>{{ contact.contact_id }}</td>
+				<td>{{ contact.contact_name }}</td>
+				<td>{{ contact.company_name }}</td>
+				<td>{{ contact.title }}</td>
+				<td>{{ contact.email }}</td>
+				<td>{{ contact.phone }}</td>
+				<td>{{ contact.linkedin_url }}</td>
+				<td>{{ contact.notes }}</td>
+				<td>
+					<div class="td-actions">
+            			<a href="{{ url_for('edit_contact', contact_id=contact.contact_id) }}" class="btn btn-secondary btn-sm">Edit</a>
+						
+            			<button class="btn btn-danger btn-sm"
+              				onclick="confirmDelete('{{ url_for('delete_contact', contact_id=contact.contact_id) }}', '{{ contact.contact_name }}')">
+              					Delete
+            			</button>
+          			</div>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
