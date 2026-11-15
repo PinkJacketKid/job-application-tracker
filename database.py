@@ -452,7 +452,7 @@ def get_all_contacts():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        all_contacts_query = ('SELECT contacts_id, contact_name, title, company_name, email, phone, linkedin_url, notes FROM contacts INNER JOIN companies ON contacts.company_id = companies.company_id ORDER BY contacts_id, contact_name')
+        all_contacts_query = ('SELECT contact_id, contact_name, title, company_name, email, phone, linkedin_url, contacts.notes FROM contacts INNER JOIN companies ON contacts.company_id = companies.company_id ORDER BY contact_id, contact_name')
 
         cursor.execute(all_contacts_query)
 
@@ -484,7 +484,7 @@ def get_contact(contact_id):
             return []
 
         cursor = connection.cursor(dictionary=True)
-        one_contact_query = ('SELECT contacts_id, contact_name, title, company_name, email, phone, linkedin_url, notes FROM contacts INNER JOIN companies ON contacts.company_id = companies.company_id WHERE contact_id = %s')
+        one_contact_query = ('SELECT contact_id, contact_name, title, company_name, email, phone, linkedin_url, contacts.notes FROM contacts INNER JOIN companies ON contacts.company_id = companies.company_id WHERE contact_id = %s')
 
         # For debugging
         # print(contact_id)
