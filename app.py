@@ -124,5 +124,12 @@ def delete_company(company_id):
         flash(f'Error: {str(e)}', 'danger')
     return redirect(url_for('companies'))
 
+@app.route('/applications')
+def applications():
+    applications = db.get_applications_jobs()
+    for application in applications:
+        application['requirements_list'] = parse_json(application.get('requirements'))
+    return render_template('applications.html', applications = applications)
+
 if __name__ == '__main__':
     app.run(debug=True)
