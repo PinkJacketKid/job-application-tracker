@@ -403,3 +403,40 @@ def delete_company(company_id):
         if connection is not None and connection.is_connected():
             connection.close()
 
+# Applications CRUD Functions
+def get_all_applications():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        all_applications_query = (""" SELECT application_id, jobs.job_title, companies.company_name, staus
+                            application_date, resume_version, cover_letter_sent, interview_data
+                            FROM applications 
+                            LEFT JOIN ON applications.job_id = jobs.job_id
+                            LEFT JOIN ON companies.company_id = jobs.company_id
+                        """)
+
+        cursor.execute(all_applications_query)
+
+        result = cursor.fetchall()
+        # Print result is for debugging
+        # print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_all_applications: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
