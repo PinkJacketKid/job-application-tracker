@@ -420,6 +420,7 @@ def get_all_applications():
                             FROM applications 
                             LEFT JOIN ON applications.job_id = jobs.job_id
                             LEFT JOIN ON companies.company_id = jobs.company_id
+                            ORDER BY application_id, application_date
                         """)
 
         cursor.execute(all_applications_query)
