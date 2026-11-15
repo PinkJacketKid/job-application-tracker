@@ -436,4 +436,193 @@ def get_all_applications():
         if connection is not None and connection.is_connected():
             connection.close()
 
+
+
+
+
 # Contacts CRUD functions
+def get_all_contacts():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        all_contacts_query = ('SELECT contacts_id, contact_name, title, company_name, email, phone, linkedin_url, notes FROM contacts INNER JOIN companies ON contacts.company_id = companies.company_id ORDER BY contacts_id, contact_name')
+
+        cursor.execute(all_contacts_query)
+
+        result = cursor.fetchall()
+        # Print result is for debugging
+        # print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_all_contacts: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def get_contact(contact_id):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        one_contact_query = ('SELECT contacts_id, contact_name, title, company_name, email, phone, linkedin_url, notes FROM contacts INNER JOIN companies ON contacts.company_id = companies.company_id WHERE contact_id = %s')
+
+        # For debugging
+        # print(contact_id)
+        # print("contact_id type: ", type(contact_id))
+
+        contact_id_list = [contact_id]
+
+        # For debugging
+        # print(contact_id_list)
+        # print("contact_id_list type: ", type(contact_id_list))
+
+        cursor.execute(one_contact_query, contact_id_list)
+
+        result = cursor.fetchone()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_contact: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def create_contact(data):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+
+        insert_contact_query = ("""
+                            INSERT INTO contacts (company_id, contact_name, title, email, phone, linkedin_url, notes)
+                            VALUES (%s, %s, %s, %s, %s, %s, %s)
+                        """)
+
+        cursor.execute(insert_contact_query, (data.get('company_id'), data['contact_name'], data.get('title'),
+          data.get('email') or None, data.get('phone') or None,
+          data.get('linkedin_url'), data.get('notes') or None))
+
+        connection.commit()
+    
+    except Error as error:
+        print(f'Database error in create_contact: {error}')
+        if cursor is not None:
+            connection.rollback()
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def update_contact(contact_id, data):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+
+        update_contact_query = ("""
+                            UPDATE contacts SET company_id=%s, contact_name=%s, title=%s, email=%s, phone=%s, 
+                            linkedin_url=%s, notes=%s WHERE contact_id=%s
+                        """)
+
+        cursor.execute(update_contact_query, (data.get('company_id'), data['contact_name'], data.get('title'),
+          data.get('email') or None, data.get('phone') or None,
+          data.get('linkedin_url'), data.get('notes') or None, contact_id))
+
+        connection.commit()
+    
+    except Error as error:
+        print(f'Database error in update_contact: {error}')
+        if cursor is not None:
+            connection.rollback()
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def delete_contact(contact_id):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        delete_contact_query = ('DELETE FROM contacts WHERE contact_id = %s')
+
+        # For debugging
+        # print(contact_id)
+        # print("contact_id type: ", type(contact_id))
+
+        contact_id_list = [contact_id]
+
+        # For debugging
+        # print(contact_id_list)
+        #print("contact_id_list type: ", type(contact_id_list))
+
+        cursor.execute(delete_contact_query, contact_id_list)
+
+        connection.commit()
+    
+    except Error as error:
+        print(f'Database error in delete_contact: {error}')
+        if cursor is not None:
+            connection.rollback()
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()

@@ -131,5 +131,7 @@ def applications():
         application['interview_data_list'] = parse_json(application.get('interview_data'))
     return render_template('applications.html', applications = applications)
 
+# Add rest of applications stuff later
+
 if __name__ == '__main__':
     app.run(debug=True)
