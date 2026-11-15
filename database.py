@@ -402,3 +402,4 @@ def delete_company(company_id):
 
         if connection is not None and connection.is_connected():
             connection.close()
+

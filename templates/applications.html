@@ -1,9 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Applications</title>
-	<link rel = "stylesheet" href = "../static/style.css">
-</head>
-</html>
+{% extends "base.html" %}
+{% block title %}Applications{% endblock %}
+{% block page_title %}<h1>Applications</h1>{% endblock %}
+
+{% block content %}
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Application ID</th>
+				<th scope="col">Position</th>
+				<th scope="col">Company</th>
+				<th scope="col">Status</th>
+				<th scope="col">Applied</th>
+				<th scope="col">Resume Version</th>
+				<th scope="col">Sent Cover Letter</th>
+				<th scope="col">Interview Notes</th>
+				<th scop="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+{% endblock %}
