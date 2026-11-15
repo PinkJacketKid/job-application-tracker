@@ -133,5 +133,47 @@ def applications():
 
 # Add rest of applications stuff later
 
+@app.route('/contacts')
+def contacts():
+    contacts = db.get_all_contacts()
+    return render_template('contacts.html', contacts=contacts)
+
+@app.route('/contacts/add', methods=['GET', 'POST'])
+def add_contact():
+    companies = db.get_all_companies()
+    if request.method == 'POST':
+        try:
+            db.create_contact(request.form)
+            flash('Contact added successfully!', 'success')
+            return redirect(url_for('contacts'))
+        except Exception as e:
+            flash(f'Error: {str(e)}', 'danger')
+    return render_template('contacts_form.html', contact=None, companies=companies, action='Add')
+
+@app.route('/contacts/edit/<int:contact_id>', methods=['GET', 'POST'])
+def edit_contact(contact_id):
+    contact = db.get_contact(contact_id)
+    companies = db.get_all_companies()
+    if not contact:
+        flash('Contact not found.', 'danger')
+        return redirect(url_for('contacts'))
+    if request.method == 'POST':
+        try:
+            db.update_contact(contact_id, request.form)
+            flash('Contact updated!', 'success')
+            return redirect(url_for('contacts'))
+        except Exception as e:
+            flash(f'Error: {str(e)}', 'danger')
+    return render_template('contacts_form.html', contact=contact, companies=companies, action='Edit')
+
+@app.route('/contacts/delete/<int:contact_id>', methods=['POST'])
+def delete_contact(contact_id):
+    try:
+        db.delete_contact(contact_id)
+        flash('Contact deleted.', 'success')
+    except Exception as e:
+        flash(f'Error: {str(e)}', 'danger')
+    return redirect(url_for('contacts'))
+
 if __name__ == '__main__':
     app.run(debug=True)
