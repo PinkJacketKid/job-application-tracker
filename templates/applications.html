@@ -27,6 +27,18 @@
 					<td>{{ application.application_date }}</td>
 					<td>{{ application.resume_version }}</td>
 					<td>{{ application.cover_letter_sent }}</td>
+					<td>
+						<div class="tag-list">
+            				{% for skill in (application.interview_data_list or []) %}
+              					{% if loop.index <= 4 %}
+                					<span class="tag">{{ note }}</span>
+              					{% endif %}
+            				{% endfor %}
+            				{% if (application.interview_data_list or [])|length > 4 %}
+              					<span class="tag">+{{ (application.interview_data_list|length) - 4 }}</span>
+            				{% endif %}
+          				</div>
+					</td>
 				</tr>
 			{% endfor %}
 		</tbody>
