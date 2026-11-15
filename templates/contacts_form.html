@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Contacts{% endblock %}
+{% block page_title %}<h1>Contact Form</h1>{% endblock %}
+
+{% block content %}
+    <a href="{{ url_for('contacts') }}" class="btn btn-secondary">Back</a>
+    <form method="POST">
+        <label>Full Name</label>
+        <input type="text" name="contact_name" value="{{ contact.contact_name if contact else '' }}" placeholder="Stan Lee" required>
+
+        <label>Title</label>
+        <input type="text" name="title" value="{{ contact.title if contact else '' }}" placeholder="Recruiter">
+
+        <label>Company</label>
+        <select name="company_id">
+            <option value="">— Select Company —</option>
+            {% for company in companies %}
+            <option value="{{ company.company_id }}">
+                {{ company.company_name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ contact.email if contact else '' }}" placeholder="stanlee@company.com">
+
+        <label>Phone</label>
+        <input type="tel" name="phone" value="{{ contact.phone if contact else '' }}" placeholder="305-555-0800">
+
+        <label>LinkedIn URL</label>
+        <input type="url" name="linkedin_url" value="{{ contact.linkedin_url if contact else '' }}">
+
+        <label>Notes</label>
+        <textarea name="notes" placeholder="Preferred contact method, follow-up actions..."></textarea>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{ url_for('contacts') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+
+    </form>
+{% endblock %}
