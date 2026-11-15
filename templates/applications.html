@@ -17,6 +17,18 @@
 				<th scop="col">Actions</th>
 			</tr>
 		</thead>
-		<tbody></tbody>
+		<tbody>
+			{% for application in applications %}
+				<tr>
+					<td>{{ application.application_id }}</td>
+					<td>{{ application.job_title }}</td>
+					<td>{{ application.company_name }}</td>
+					<td>{{ application.status }}</td>
+					<td>{{ application.application_date }}</td>
+					<td>{{ application.resume_version }}</td>
+					<td>{{ application.cover_letter_sent }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
 	</table>
 {% endblock %}

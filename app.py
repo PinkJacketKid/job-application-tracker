@@ -128,7 +128,7 @@ def delete_company(company_id):
 def applications():
     applications = db.get_applications_jobs()
     for application in applications:
-        application['requirements_list'] = parse_json(application.get('requirements'))
+        application['interview_data_list'] = parse_json(application.get('interview_data'))
     return render_template('applications.html', applications = applications)
 
 if __name__ == '__main__':
