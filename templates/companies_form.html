@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Companies{% endblock %}
+{% block page_title %}<h1>Company Form</h1>{% endblock %}
+
+{% block content %}
+    <a href="{{ url_for('companies') }}" class="btn btn-secondary">Back</a>
+    <form method="POST">
+        <label for="company_name">Company Name</label>
+        <input type="text" id="company_name" name="company_name" value="{{ company.company_name if company else '' }}" placeholder="Amazon" required>
+
+        <label>Industry</label>
+        <input type="text" name="industry" value="{{ company.industry if company else '' }}" placeholder="Data Science">
+
+        <label>Website</label>
+        <input type="url" name="website" value="{{ company.website if company else '' }}">
+
+        <label>City</label>
+        <input type="text" name="city" value="{{ company.city if company else '' }}" placeholder="Miami">
+
+        <label>State</label>
+        <input type="text" name="state" value="{{ company.state if company else '' }}" placeholder="Florida">
+
+        <label>Notes</label>
+        <textarea name="notes" placeholder="Benefits, culture, relocation needed, etc.">{{ company.notes if company else '' }}</textarea>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{{ url_for('companies') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+{% endblock %}

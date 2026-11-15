@@ -98,7 +98,7 @@ def add_company():
             return redirect(url_for('companies'))
         except Exception as e:
             flash(f'Error: {str(e)}', 'danger')
-    return render_template('company_form.html', company=None, action='Add')
+    return render_template('companies_form.html', company=None, action='Add')
 
 @app.route('/companies/edit/<int:company_id>', methods=['GET', 'POST'])
 def edit_company(company_id):
@@ -113,7 +113,7 @@ def edit_company(company_id):
             return redirect(url_for('companies'))
         except Exception as e:
             flash(f'Error: {str(e)}', 'danger')
-    return render_template('company_form.html', company=company, action='Edit')
+    return render_template('companies_form.html', company=company, action='Edit')
 
 @app.route('/companies/delete/<int:company_id>', methods=['POST'])
 def delete_company(company_id):
