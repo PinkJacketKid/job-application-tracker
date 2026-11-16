@@ -161,7 +161,7 @@ def add_application():
             flash(f'Error: {str(e)}', 'danger')
     return render_template('applications_form.html', application=None, jobs=jobs, action='Add')
 
-@app.route('/applications/edit/<int:app_id>', methods=['GET', 'POST'])
+@app.route('/applications/edit/<int:application_id>', methods=['GET', 'POST'])
 def edit_application(application_id):
     application = db.get_application(application_id)
     jobs = db.get_all_jobs()
@@ -177,7 +177,7 @@ def edit_application(application_id):
             flash(f'Error: {str(e)}', 'danger')
     return render_template('applications_form.html', application=application, jobs=jobs, action='Edit')
 
-@app.route('/applications/delete/<int:app_id>', methods=['POST'])
+@app.route('/applications/delete/<int:application_id>', methods=['POST'])
 def delete_application(application_id):
     try:
         db.delete_application(application_id)

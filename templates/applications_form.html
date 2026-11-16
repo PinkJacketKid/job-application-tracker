@@ -9,11 +9,8 @@
         <select name="job_id" required>
             <option value="">— Select Job —</option>
             {% for job in jobs %}
-            <option
-              value="{{ job.job_id }}"
-              {% if application and application.job_id=""
-              ="job.job_id" %}selected{% endif %}>
-                {{ j.job_title }} {% if j.company_name %}@ {{ j.company_name }}{% endif %}
+            <option value="{{ job.job_id }}">
+                {{ job.job_title }} {% if job.company_name %}@ {{ job.company_name }}{% endif %}
             </option>
             {% endfor %}
         </select>
