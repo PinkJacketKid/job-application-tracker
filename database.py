@@ -792,3 +792,36 @@ def delete_contact(contact_id):
 
         if connection is not None and connection.is_connected():
             connection.close()
+
+# For job match
+def get_jobs_with_requirements():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        jobs_with_requirements_query = ('SELECT job_id, job_title, company_name, job_type, salary_min, salary_max, requirements, job_url, date_posted FROM jobs INNER JOIN companies ON jobs.company_id = companies.company_id WHERE requirements IS NOT NULL')
+
+        cursor.execute(jobs_with_requirements_query)
+
+        result = cursor.fetchall()
+        # Print result is for debugging
+        # print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_jobs_with_requirements: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
