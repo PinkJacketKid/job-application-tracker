@@ -1,9 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Job Match</title>
-	<link rel = "stylesheet" href = "../static/style.css">
-</head>
-</html>
+{% extends "base.html" %}
+{% block title %}Job Match{% endblock %}
+{% block page_title %}<h1>Job Match</h1>{% endblock %}
+
+{% block content %}
+	<h2>Enter your skills to see which jobs you match with best</h2>
+
+	<form method="POST">
+		<label>Your Skills</label>
+    	<input type="text" name="skills" value="{{ user_skills }}" placeholder="Python, SQL, Flask">
+		<div class="form-hint">Comma-separated list of your skills</div>
+		<button type="submit" class="btn btn-primary" style="height: 38px">
+      		Match
+    	</button>
+	</form>
+{% endblock %}
