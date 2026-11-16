@@ -35,14 +35,13 @@
 					</td>
 					<td>
 						<div class="tag-list">
-            				{% for skill in (application.interview_data_list or []) %}
-              					{% if loop.index <= 4 %}
-                					<span class="tag">{{ note }}</span>
-              					{% endif %}
-            				{% endfor %}
-            				{% if (application.interview_data_list or [])|length > 4 %}
-              					<span class="tag">+{{ (application.interview_data_list|length) - 4 }}</span>
-            				{% endif %}
+							{% if not application.interview_data_dict %}
+								None
+							{% else %}
+            					{% for key, value in (application.interview_data_dict.items() or {}) %}
+              						<span class="tag"><p>{{ key }}: {{ value }}</p></span>
+            					{% endfor %}
+							{% endif %}
           				</div>
 					</td>
 				</tr>

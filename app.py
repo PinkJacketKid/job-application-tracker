@@ -18,6 +18,16 @@ def parse_json(req_json):
     except:
         return []
 
+def parse_json_app(req_json):
+    """Parse JSON field into a list."""
+    if not req_json:
+        return []
+    if isinstance(req_json, dict):
+        return req_json
+    try:
+        return json.loads(req_json)
+    except:
+        return []
 
 def get_db():
     return mysql.connector.connect(
@@ -128,7 +138,15 @@ def delete_company(company_id):
 def applications():
     applications = db.get_all_applications()
     for application in applications:
-        application['interview_data_list'] = parse_json(application.get('interview_data'))
+        # For debugging
+        # print(application.get('interview_data'))
+        # print("interview_data type: ", type(application.get('interview_data')))
+
+        application['interview_data_dict'] = parse_json_app(application.get('interview_data'))
+        
+        # For debugging
+        # print(application['interview_data_dict'])
+        # print("interview_data_dict type: ", type(application['interview_data_dict']))
     return render_template('applications.html', applications = applications)
 
 # Add rest of applications stuff later
