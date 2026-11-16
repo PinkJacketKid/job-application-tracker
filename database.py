@@ -436,9 +436,175 @@ def get_all_applications():
         if connection is not None and connection.is_connected():
             connection.close()
 
+def get_application(application_id):
+    connection = None
+    cursor = None
 
+    try:
+        connection = get_connection()
 
+        if connection is None:
+            return []
 
+        cursor = connection.cursor(dictionary=True)
+        one_application_query = ('SELECT a.*, j.job_title, c.company_name FROM applications a LEFT JOIN jobs j ON a.job_id = j.job_id LEFT JOIN companies c ON j.company_id = c.company_id WHERE application_id = %s')
+
+        # For debugging
+        # print(application_id)
+        # print("application_id type: ", type(application_id))
+
+        application_id_list = [application_id]
+
+        # For debugging
+        # print(application_id_list)
+        # print("application_id_list type: ", type(application_id_list))
+
+        cursor.execute(one_application_query, application_id_list)
+
+        result = cursor.fetchone()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_application: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def create_application(data):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+
+        interview = data.get('interview_data', '{}')
+        if isinstance(interview, str) and interview:
+            try:
+                json.loads(interview)
+            except:
+                interview = json.dumps({"notes": interview})
+        elif not interview:
+            interview = None
+
+        insert_application_query = ("""
+                            INSERT INTO applications (job_id, application_date, status, resume_version, cover_letter_sent, interview_data)
+                            VALUES (%s, %s, %s, %s, %s, %s)
+                        """)
+
+        cursor.execute(insert_application_query, (data.get('job_id'), data['application_date'], data.get('status'),
+          data.get('resume_version') or None, bool(data.get('cover_letter_sent')), interview))
+
+        connection.commit()
+    
+    except Error as error:
+        print(f'Database error in create_application: {error}')
+        if cursor is not None:
+            connection.rollback()
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def update_application(application_id, data):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+
+        interview = data.get('interview_data', '{}')
+        if isinstance(interview, str) and interview:
+            try:
+                json.loads(interview)
+            except:
+                interview = json.dumps({"notes": interview})
+        elif not interview:
+            interview = None
+
+        update_application_query = ("""
+                            UPDATE applications SET job_id=%s, application_date=%s, status=%s, resume_version=%s,
+                                cover_letter_sent=%s, interview_data=%s WHERE application_id=%s
+                        """)
+
+        cursor.execute(update_application_query, (data.get('job_id'), data['application_date'], data.get('status'),
+          data.get('resume_version') or None, bool(data.get('cover_letter_sent')), interview, application_id))
+
+        connection.commit()
+    
+    except Error as error:
+        print(f'Database error in update_application: {error}')
+        if cursor is not None:
+            connection.rollback()
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def delete_application(application_id):
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        delete_application_query = ('DELETE FROM applications WHERE application_id = %s')
+
+        # For debugging
+        # print(application_id)
+        # print("application_id type: ", type(application_id))
+
+        application_id_list = [application_id]
+
+        # For debugging
+        # print(application_id_list)
+        #print("application_id_list type: ", type(application_id_list))
+
+        cursor.execute(delete_application_query, application_id_list)
+
+        connection.commit()
+    
+    except Error as error:
+        print(f'Database error in delete_application: {error}')
+        if cursor is not None:
+            connection.rollback()
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
 
 # Contacts CRUD functions
 def get_all_contacts():
