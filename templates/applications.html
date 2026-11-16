@@ -26,7 +26,13 @@
 					<td>{{ application.status }}</td>
 					<td>{{ application.application_date }}</td>
 					<td>{{ application.resume_version }}</td>
-					<td>{{ application.cover_letter_sent }}</td>
+					<td>
+						{% if application.cover_letter_sent %}
+          				<span style="color: var(--green); font-size: 0.8rem">✓ Sent</span>
+          				{% else %}
+          				<span style="color: var(--text3); font-size: 0.8rem">✕ No</span>
+          				{% endif %}
+					</td>
 					<td>
 						<div class="tag-list">
             				{% for skill in (application.interview_data_list or []) %}
