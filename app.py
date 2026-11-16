@@ -143,13 +143,48 @@ def applications():
         # print("interview_data type: ", type(application.get('interview_data')))
 
         application['interview_data_dict'] = parse_json_app(application.get('interview_data'))
-        
+
         # For debugging
         # print(application['interview_data_dict'])
         # print("interview_data_dict type: ", type(application['interview_data_dict']))
     return render_template('applications.html', applications = applications)
 
-# Add rest of applications stuff later
+@app.route('/applications/add', methods=['GET', 'POST'])
+def add_application():
+    jobs = db.get_all_jobs()
+    if request.method == 'POST':
+        try:
+            db.create_application(request.form)
+            flash('Application added successfully!', 'success')
+            return redirect(url_for('applications'))
+        except Exception as e:
+            flash(f'Error: {str(e)}', 'danger')
+    return render_template('applications_form.html', application=None, jobs=jobs, action='Add')
+
+@app.route('/applications/edit/<int:app_id>', methods=['GET', 'POST'])
+def edit_application(application_id):
+    application = db.get_application(application_id)
+    jobs = db.get_all_jobs()
+    if not application:
+        flash('Application not found.', 'danger')
+        return redirect(url_for('applications'))
+    if request.method == 'POST':
+        try:
+            db.update_application(application_id, request.form)
+            flash('Application updated!', 'success')
+            return redirect(url_for('applications'))
+        except Exception as e:
+            flash(f'Error: {str(e)}', 'danger')
+    return render_template('applications_form.html', application=application, jobs=jobs, action='Edit')
+
+@app.route('/applications/delete/<int:app_id>', methods=['POST'])
+def delete_application(application_id):
+    try:
+        db.delete_application(application_id)
+        flash('Application deleted.', 'success')
+    except Exception as e:
+        flash(f'Error: {str(e)}', 'danger')
+    return redirect(url_for('applications'))
 
 @app.route('/contacts')
 def contacts():
