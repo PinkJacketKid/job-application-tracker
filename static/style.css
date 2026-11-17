@@ -1,4 +1,31 @@
 
+/** menu styles **/
+.navbar {
+    /* add background color here */
+    & ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    & a {
+        display: block;
+        padding: .25em 1em; /* changing padding values later */
+        margin: .25em;
+        text-decoration: none;
+        /* text color here */
+    }
+
+    & a:hover, a:focus {
+        text-decoration: underline;
+    }
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
 
 /* Base button class */
 .btn {
