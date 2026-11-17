@@ -3,71 +3,71 @@
 {% block page_title %}<h1>Job Match</h1>{% endblock %}
 
 {% block content %}
-	<h2>Enter your skills to see which jobs you match with best</h2>
+<h2>Enter your skills to see which jobs you match with best</h2>
 
-	<form method="POST">
-		<label for="skills">Your Skills</label>
-    	<input type="text" id="skills" name="skills" value="{{ user_skills }}" placeholder="Python, SQL, Flask" required>
-		<div class="form-hint">Comma-separated list of your skills</div>
-		<button type="submit" class="btn btn-primary">
-      		Match
-    	</button>
-	</form>
+<form method="POST">
+	<label for="skills">Your Skills</label>
+	<input type="text" id="skills" name="skills" value="{{ user_skills }}" placeholder="Python, SQL, Flask" required>
+	<div class="form-hint">Comma-separated list of your skills</div>
+	<button type="submit" class="btn btn-primary">
+		Match
+	</button>
+</form>
 
-	{% if user_skills %}
-		{% if results %}
-		<h2>Matching Jobs</h2>
-		<span class="badge badge-neutral">
-			{{ results|length }} found
-		</span>
-			{% for r in results %}
-			<!-- Rank -->
-  			<div class="match-rank">#{{ loop.index }}</div>
-			<!-- Match info -->
-			<div class="match-info">
-    			<div class="match-job-title">
-					{{ r.job.job_title }}
-					at
-      				{{ r.job.company_name or 'Unknown Company' }}
-				</div>
-				<div class="match-percentage">
-					{{ r.match_percentage }}%
-				</div>
-				<div>({{ r.matched_count }}/{{ r.total_count }} skills)</div>
-				
-				{% if r.matched %}
-    			<div class="skill-chips">
-				Matched: 
-      				{% for skill in r.matched %}
-      					{{ skill }}{% if not loop.last %}, {% endif %}
-      				{% endfor %}
-    			</div>
-				{% endif %}
-				{% if r.missing %} 
-    			<div class="skill-chips">
-				Missing:
-      				{% for skill in r.missing %}
-      					{{ skill }}{% if not loop.last %}, {% endif %}
-      				{% endfor %}
-    			</div>
-				{% endif %}
-  			</div>
-			{% endfor %}
-		{% else %}
-		<div class="no-results">
-    		<h2>No matching jobs found</h2>
-    		<div class="no-results-text">
-      			Try searching with different skills.
-    		</div>
-  		</div>
-		{% endif %}
-	{% else %}
-		<div class="no-results">
-			<div class="no-results-title"><h2>Enter your skills above to get started</h2></div>
-    		<div class="no-results-text">
-      			The matcher will rank all tracked jobs by how closely they match your
-      			skill set, highlighting what you have and what's missing.
-    		</div>
+{% if user_skills %}
+	{% if results %}
+	<h2>Matching Jobs</h2>
+	<span class="badge badge-neutral">
+		{{ results|length }} found
+	</span>
+		{% for r in results %}
+		<!-- Rank -->
+		<div class="match-rank">#{{ loop.index }}</div>
+		<!-- Match info -->
+		<div class="match-info">
+			<div class="match-job-title">
+				{{ r.job.job_title }}
+				at
+				{{ r.job.company_name or 'Unknown Company' }}
+			</div>
+			<div class="match-percentage">
+				{{ r.match_percentage }}%
+			</div>
+			<div>({{ r.matched_count }}/{{ r.total_count }} skills)</div>
+			
+			{% if r.matched %}
+			<div class="skill-chips">
+			Matched: 
+				{% for skill in r.matched %}
+					{{ skill }}{% if not loop.last %}, {% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+			{% if r.missing %} 
+			<div class="skill-chips">
+			Missing:
+				{% for skill in r.missing %}
+					{{ skill }}{% if not loop.last %}, {% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
 		</div>
+		{% endfor %}
+	{% else %}
+	<div class="no-results">
+		<h2>No matching jobs found</h2>
+		<div class="no-results-text">
+			Try searching with different skills.
+		</div>
+	</div>
 	{% endif %}
+{% else %}
+	<div class="no-results">
+		<div class="no-results-title"><h2>Enter your skills above to get started</h2></div>
+		<div class="no-results-text">
+			The matcher will rank all tracked jobs by how closely they match your
+			skill set, highlighting what you have and what's missing.
+		</div>
+	</div>
+{% endif %}
 {% endblock %}
