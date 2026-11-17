@@ -228,5 +228,39 @@ def delete_contact(contact_id):
         flash(f'Error: {str(e)}', 'danger')
     return redirect(url_for('contacts'))
 
+@app.route('/job-match', methods=['GET', 'POST'])
+def job_match():
+    results = []
+    user_skills = ''
+    
+    if request.method == 'POST':
+        user_skills = request.form.get('skills', '')
+        skill_list = [s.strip().lower() for s in user_skills.split(',') if s.strip()]
+        all_jobs_requirements = db.get_jobs_with_requirements()
+
+        for job in all_jobs_requirements:
+            job_reqs = parse_json(job.get('requirements'))
+            job_reqs_lower = [r.lower() for r in job_reqs]
+
+            if not job_reqs:
+                continue
+
+            matched = [s for s in skill_list if s in job_reqs_lower]
+            missing = [r for r in job_reqs if r.lower() not in skill_list]
+            match_percentage = round(len(matched) / len(job_reqs) * 100) if job_reqs else 0
+
+            results.append({
+                'job': job,
+                'match_pct': match_percentage,
+                'matched': matched,
+                'missing': missing,
+                'matched_count': len(matched),
+                'total_count': len(job_reqs)
+            })
+
+        results.sort(key=lambda x: x['match_pct'], reverse=True)
+
+    render_template('job_match.html', results=results, user_skills=user_skills)
+
 if __name__ == '__main__':
     app.run(debug=True)
