@@ -251,14 +251,14 @@ def job_match():
 
             results.append({
                 'job': job,
-                'match_pct': match_percentage,
+                'match_percentage': match_percentage,
                 'matched': matched,
                 'missing': missing,
                 'matched_count': len(matched),
                 'total_count': len(job_reqs)
             })
 
-        results.sort(key=lambda x: x['match_pct'], reverse=True)
+        results.sort(key=lambda x: x['match_percentage'], reverse=True)
 
     return render_template('job_match.html', results=results, user_skills=user_skills)
 
