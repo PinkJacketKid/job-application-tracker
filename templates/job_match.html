@@ -9,8 +9,19 @@
 		<label>Your Skills</label>
     	<input type="text" name="skills" value="{{ user_skills }}" placeholder="Python, SQL, Flask">
 		<div class="form-hint">Comma-separated list of your skills</div>
-		<button type="submit" class="btn btn-primary" style="height: 38px">
+		<button type="submit" class="btn btn-primary">
       		Match
     	</button>
 	</form>
+
+	{% if user_skills and results is defined %}
+		{% if results %}
+		<h2>Matching Jobs</h2>
+		<span class="badge badge-neutral">
+			{{ results|length }} found
+		</span>
+			{% for r in results %}
+			<!-- Rank -->
+  			<div class="match-rank">#{{ loop.index }}</div>
+	{% endif %}
 {% endblock %}
