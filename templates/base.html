@@ -8,6 +8,41 @@
 </head>
 
 <body>
+	<nav class="navbar">
+		<ul class="menu">
+			<li>
+				<a class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">
+					Dashboard
+				</a>
+			</li>
+			<li>
+				<a class="nav-link {% if request.endpoint in ['jobs','add_job','edit_job'] %}active{% endif %}" href="{{ url_for('jobs') }}">
+					Jobs
+				</a>
+			</li>
+			<li>
+				<a class="nav-link {% if request.endpoint in ['companies','add_company','edit_company'] %}active{% endif %}" href="{{ url_for('companies') }}">
+					Companies
+				</a>
+			</li>
+			<li>
+				<a class="nav-link {% if request.endpoint in ['applications','add_application','edit_application'] %}active{% endif %}" href="{{ url_for('applications') }}">
+					Applications
+				</a>
+			</li>
+			<li>
+				<a class="nav-link {% if request.endpoint in ['contacts','add_contact','edit_contact'] %}active{% endif %}" href="{{ url_for('contacts') }}">
+					Contacts
+				</a>
+			</li>
+			<li>
+				<a class="nav-link {% if request.endpoint == 'job_match' %}active{% endif %}" href="{{ url_for('job_match') }}">
+					Job Match
+				</a>
+			</li>
+		</ul>
+	</nav>
+
 	<header>{% block page_title %}{% endblock %}</header>
 
 	<main>
