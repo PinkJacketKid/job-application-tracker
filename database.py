@@ -986,3 +986,177 @@ def get_applications_status_count():
 
         if connection is not None and connection.is_connected():
             connection.close()
+
+def get_jobs_type_count():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        jobs_type_count_query = ('SELECT job_type, COUNT(*) FROM jobs GROUP BY job_type')
+
+        cursor.execute(jobs_type_count_query)
+
+        result = cursor.fetchall()
+        # Print result is for debugging
+        # print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_jobs_type_count: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def get_recent_applications():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        recent_applications_query = ("""
+                            SELECT a.*, j.job_title, c.company_name
+                            FROM applications a
+                            LEFT JOIN jobs j ON a.job_id = j.job_id
+                            LEFT JOIN companies c ON j.company_id = c.company_id
+                            ORDER BY a.application_date DESC LIMIT 5
+                        """)
+
+        cursor.execute(recent_applications_query)
+
+        result = cursor.fetchall()
+        # Print result is for debugging
+        # print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_recent_applications: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def get_offers_count():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        offers_count_query = ("SELECT COUNT(*) FROM applications WHERE status='Offer'")
+
+        cursor.execute(offers_count_query)
+
+        result = cursor.fetchone()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_offers_count: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def get_interviews_count():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        interviews_count_query = ("SELECT COUNT(*) FROM applications WHERE status='Interview'")
+
+        cursor.execute(interviews_count_query)
+
+        result = cursor.fetchone()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_interviews_count: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def get_all_offers():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        all_offers_query = ("""
+                                SELECT a.*, j.job_title, j.salary_min, j.salary_max, j.job_type,
+                                    c.company_name, c.industry, c.city, c.state
+                                FROM applications a
+                                LEFT JOIN jobs j ON a.job_id = j.job_id
+                                LEFT JOIN companies c ON j.company_id = c.company_id
+                                WHERE a.status='Offer'
+                                ORDER BY a.application_date DESC
+                            """)
+
+        cursor.execute(all_offers_query)
+
+        result = cursor.fetchall()
+        # Print result is for debugging
+        # print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_all_offers: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
