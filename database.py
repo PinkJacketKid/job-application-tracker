@@ -954,3 +954,35 @@ def get_total_contacts():
 
         if connection is not None and connection.is_connected():
             connection.close()
+
+def get_applications_status_count():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        applications_status_count_query = ('SELECT status, COUNT(*) FROM applications GROUP BY status')
+
+        cursor.execute(applications_status_count_query)
+
+        result = cursor.fetchall()
+        # Print result is for debugging
+        # print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_applications_status_count: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
