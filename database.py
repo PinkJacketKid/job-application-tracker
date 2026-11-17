@@ -825,3 +825,132 @@ def get_jobs_with_requirements():
 
         if connection is not None and connection.is_connected():
             connection.close()
+
+# Functions for dashboard
+def get_total_jobs():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        job_count_query = ('SELECT COUNT(*) FROM jobs')
+
+        cursor.execute(job_count_query)
+
+        result = cursor.fetchone()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_total_jobs: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def get_total_companies():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        company_count_query = ('SELECT COUNT(*) FROM companies')
+
+        cursor.execute(company_count_query)
+
+        result = cursor.fetchone()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_total_companies: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def get_total_applications():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        application_count_query = ('SELECT COUNT(*) FROM applications')
+
+        cursor.execute(application_count_query)
+
+        result = cursor.fetchone()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_total_applications: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+def get_total_contacts():
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_connection()
+
+        if connection is None:
+            return []
+
+        cursor = connection.cursor(dictionary=True)
+        contact_count_query = ('SELECT COUNT(*) FROM contacts')
+
+        cursor.execute(contact_count_query)
+
+        result = cursor.fetchone()
+        # Print result is for debugging
+        print(result)
+
+        return result
+    
+    except Error as error:
+        print(f'Database error in get_total_contacts: {error}')
+        return []
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
