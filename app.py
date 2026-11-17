@@ -232,7 +232,7 @@ def delete_contact(contact_id):
 def job_match():
     results = []
     user_skills = ''
-    
+
     if request.method == 'POST':
         user_skills = request.form.get('skills', '')
         skill_list = [s.strip().lower() for s in user_skills.split(',') if s.strip()]
@@ -260,7 +260,7 @@ def job_match():
 
         results.sort(key=lambda x: x['match_pct'], reverse=True)
 
-    render_template('job_match.html', results=results, user_skills=user_skills)
+    return render_template('job_match.html', results=results, user_skills=user_skills)
 
 if __name__ == '__main__':
     app.run(debug=True)
