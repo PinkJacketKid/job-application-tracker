@@ -19,9 +19,9 @@ def parse_json(req_json):
         return []
 
 def parse_json_app(req_json):
-    """Parse JSON field into a list."""
+    """Parse JSON field into a dictionary."""
     if not req_json:
-        return []
+        return {}
     if isinstance(req_json, dict):
         return req_json
     try:
