@@ -235,7 +235,7 @@ def job_match():
 
     if request.method == 'POST':
         user_skills = request.form.get('skills', '')
-        skill_list = [s.strip().lower() for s in user_skills.split(',') if s.strip()]
+        skill_list = {s.strip().lower() for s in user_skills.split(',') if s.strip()}
         all_jobs_requirements = db.get_jobs_with_requirements()
 
         for job in all_jobs_requirements:
@@ -249,14 +249,17 @@ def job_match():
             missing = [r for r in job_reqs if r.lower() not in skill_list]
             match_percentage = round(len(matched) / len(job_reqs) * 100) if job_reqs else 0
 
-            results.append({
-                'job': job,
-                'match_percentage': match_percentage,
-                'matched': matched,
-                'missing': missing,
-                'matched_count': len(matched),
-                'total_count': len(job_reqs)
-            })
+            matched_count = len(matched)
+
+            if matched_count > 0:
+                results.append({
+                    'job': job,
+                    'match_percentage': match_percentage,
+                    'matched': matched,
+                    'missing': missing,
+                    'matched_count': len(matched),
+                    'total_count': len(job_reqs)
+                })
 
         results.sort(key=lambda x: x['match_percentage'], reverse=True)
 
