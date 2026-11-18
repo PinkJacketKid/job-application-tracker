@@ -68,4 +68,28 @@
       		</tbody>
     	</table>
 	</div>
+
+	<div>
+		Offers
+		{% if offers %}
+			{% for offer in offers%}
+				<p>Offer</p>
+				<p>{{ offer.application_date.strftime('%b %d, %Y') if offer.application_date else '' }}</p>
+				<div>{{ offer.job_title or '—' }}</div>
+				<div>{{ offer.company_name or '—' }}</div>
+				{% if offer.city or offer.state %}
+					<div>{{ [offer.city, offer.state]|select|join(', ') }}</div>
+				{% endif %}
+				{% if offer.salary_min or offer.salary_max %}
+					<div class="win-salary">
+						${{ '{:,}'.format(offer.salary_min) if offer.salary_min else '?' }}
+						{% if offer.salary_max %}– ${{ '{:,}'.format(offer.salary_max) }}{% endif %}
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% else %}
+			<p>Your offers will show up here.</p>
+			<p>Keep applying.</p>
+		{% endif %}
+	</div>
 {% endblock %}
