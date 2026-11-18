@@ -37,6 +37,7 @@
 /* Modal stylings */
 .modal-overlay {
     /* need to add background color */
+    visibility: hidden;
     position: fixed;
     inset: 0;
     backdrop-filter: blur(4px);
@@ -48,7 +49,7 @@
     pointer-events: none;
     transition: opacity 0.2s;
 }
-.modal-overlay.show { opacity: 1; pointer-events: all; }
+.modal-overlay.show { opacity: 1; pointer-events: auto; visibility: visible;}
 
 .modal-card {
     /* need to add background color */
@@ -57,6 +58,7 @@
     width: 90%;
     transform: scale(0.95);
     transition: transform 0.2s;
+    background: white;
 }
 
 .modal-overlay.show .modal-card { transform: scale(1); }

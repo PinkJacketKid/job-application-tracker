@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{% block title %}JobTracker{% endblock %}</title>
-	<link rel = "stylesheet" href = "../static/style.css">
+	<link rel = "stylesheet" href = "{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
@@ -63,7 +63,7 @@
 	</main>
 
 	<!-- Delete Confirm Modal -->
-	<div class="modal-overlay" id="deleteModal">
+	<div class="modal-overlay" id="deleteModal" aria-hidden="true">
   		<div class="modal-card">
     		<div class="modal-title">Confirm Delete</div>
     		<div class="modal-body" id="deleteModalBody">Are you sure you want to delete this record? This action cannot be undone.</div>
@@ -81,17 +81,25 @@
   			const modal = document.getElementById('deleteModal');
   			const form = document.getElementById('deleteForm');
   			const body = document.getElementById('deleteModalBody');
+
   			form.action = action;
   			body.textContent = `Delete "${name}"? This cannot be undone.`;
   			modal.classList.add('show');
+			modal.setAttribute('aria-hidden', 'false');
 		}
 
 		function closeModal() {
-  			document.getElementById('deleteModal').classList.remove('show');
+			const modal = document.getElementById('deleteModal');
+			
+			modal.classList.remove('show');
+			modal.setAttribute('aria-hidden', 'true');
 		}
 
 		document.getElementById('deleteModal').addEventListener('click', function(e) {
-  			if (e.target === this) closeModal();
+
+			if (e.target === this) {
+				closeModal();
+			}
 		});
 	</script>
 
