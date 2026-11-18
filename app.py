@@ -42,8 +42,8 @@ def dashboard():
 
     stats['recent_applications'] = db.get_recent_applications()
 
-    stats['total_offers'] = db.get_offers_count()
-    stats['total_interviews'] = db.get_interviews_count()
+    stats['total_offers'] = db.get_offers_count()['c']
+    stats['total_interviews'] = db.get_interviews_count()['c']
 
     status_map = {s['status']: s['count'] for s in stats['status_counts']}
     type_map = {t['job_type']: t['count'] for t in stats['type_counts']}
