@@ -12,10 +12,11 @@
         <select name="company_id">
             <option value="">— Select Company —</option>
             {% for company in companies %}
-                <option value="{{ company.company_id }}" >
-                    {% if job and job.company_id == company.company_id %}
+                <option value="{{ company.company_id }}" 
+                    {% if job and job.company_id|string == company.company_id|string %}
                         selected
-                    {% endif %}
+                    {% endif %}>
+                    
                     {{ company.company_name }}
                 </option>
             {% endfor %}
