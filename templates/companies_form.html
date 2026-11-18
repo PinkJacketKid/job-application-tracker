@@ -5,8 +5,8 @@
 {% block content %}
     <a href="{{ url_for('companies') }}" class="btn btn-secondary">Back</a>
     <form method="POST">
-        <label for="company_name">Company Name</label>
-        <input type="text" id="company_name" name="company_name" value="{{ company.company_name if company else '' }}" placeholder="Amazon" required>
+        <label>Company Name</label>
+        <input type="text" name="company_name" value="{{ company.company_name if company else '' }}" placeholder="Amazon" required>
 
         <label>Industry</label>
         <input type="text" name="industry" value="{{ company.industry if company else '' }}" placeholder="Data Science">

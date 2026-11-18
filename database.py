@@ -58,10 +58,10 @@ def get_job(job_id):
         connection = get_connection()
 
         if connection is None:
-            return []
+            return None
 
         cursor = connection.cursor(dictionary=True)
-        one_job_query = ('SELECT job_id, job_title, company_name, job_type, salary_min, salary_max, requirements, job_url, date_posted FROM jobs INNER JOIN companies ON jobs.company_id = companies.company_id WHERE job_id = %s')
+        one_job_query = ("""SELECT job_id, job_title, company_name, job_type, salary_min, salary_max, requirements, job_url, date_posted FROM jobs INNER JOIN companies ON jobs.company_id = companies.company_id WHERE job_id = %s""")
 
         # For debugging
         # print(job_id)
