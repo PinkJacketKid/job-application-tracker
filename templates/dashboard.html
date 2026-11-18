@@ -1,26 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Dashboard</title>
-	<link rel = "stylesheet" href = "../static/style.css">
-</head>
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}<h1>Dashboard</h1>{% endblock %}
 
-<body>
-	<header>
-		<h1>Dashboard</h1>
-	</header>
-
-	<!-- Will make navigation menu later -->
-	<nav>
-		<a href="/jobs">Jobs</a>
-		<a href="/companies">Companies</a>
-		<a href="/applications">Applications</a>
-		<a href="/contacts">Contacts</a>
-		<a href="/job-match">Job Match</a>
-	</nav>
-
-	<main></main>
-</body>
-</html>
+{% block content %}
+	<div>
+		<p>You have applied to: </p>
+		<p>{{ stats.total_jobs }} jobs</p>
+	</div>
+	<div>
+		<p>You have applied to: </p>
+		<p>{{ stats.total_companies }} companies</p>
+	</div>
+	<div>
+		<p>You have: </p>
+		<p>{{ stats.total_applications }} applications</p>
+	</div>
+	<div>
+		<p>You have: </p>
+		<p>{{ stats.total_contacts }} contacts</p>
+	</div>
+	<div>
+		<p>You have: </p>
+		<p>{{ stats.total_offers }} offers</p>
+	</div>
+	<div>
+		<p>You have done: </p>
+		<p>{{ stats.total_interviews }} interviews</p>
+	</div>
+{% endblock %}
