@@ -30,11 +30,18 @@
 
 	<div>
 		<p>The status of your {{ stats.total_applications }} applications:</p>
-		<p>Applied: {{ status_map.get('Applied', 0) }} </p>
-		<p>Screening: {{ status_map.get('Screening', 0) }} </p>
-		<p>Interview: {{ status_map.get('Interview', 0) }} </p>
-		<p>Offer: {{ status_map.get('Offer', 0) }} </p>
-		<p>Rejected: {{ status_map.get('Rejected', 0) }} </p>
-		<p>Withdrawn: {{ status_map.get('Withdrawn', 0) }} </p>
+		<p>Applied: {{ status_map.get('Applied', 0) }}</p>
+		<p>Screening: {{ status_map.get('Screening', 0) }}</p>
+		<p>Interview: {{ status_map.get('Interview', 0) }}</p>
+		<p>Offer: {{ status_map.get('Offer', 0) }}</p>
+		<p>Rejected: {{ status_map.get('Rejected', 0) }}</p>
+		<p>Withdrawn: {{ status_map.get('Withdrawn', 0) }}</p>
+	</div>
+	<div>
+		<p>The different job types of the {{ stats.total_jobs }} jobs you applied to:</p>
+		<p>Full-time: {{ type_map.get('Full-time', 0) }}</p>
+		<p>Part-time: {{ type_map.get('Part-time', 0) }}</p>
+		<p>Contract: {{ type_map.get('Contract', 0) }}</p>
+		<p>Internship: {{ type_map.get('Internship', 0) }}</p>
 	</div>
 {% endblock %}
