@@ -44,4 +44,28 @@
 		<p>Contract: {{ type_map.get('Contract', 0) }}</p>
 		<p>Internship: {{ type_map.get('Internship', 0) }}</p>
 	</div>
+	<div>
+		<p>Recent applications</p>
+		<a href="{{ url_for('applications') }}" class="btn btn-secondary btn-sm">View All</a>
+		<table>
+			<tbody>
+        		{% for app in stats.recent_applications %}
+        			<tr>
+          				<td>
+            				<div>{{ app.job_title or '—' }}</div>
+          				</td>
+						<td>
+							<div>{{ app.company_name or '—' }}</div>
+						</td>
+          				<td>
+            				<span class="badge badge-{{ app.status.lower() }}">{{ app.status }}</span>
+          				</td>
+          				<td>
+            				{{ app.application_date.strftime('%b %d') if app.application_date else '—' }}
+          				</td>
+        			</tr>
+        		{% endfor %}
+      		</tbody>
+    	</table>
+	</div>
 {% endblock %}
