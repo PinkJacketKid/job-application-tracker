@@ -23,7 +23,9 @@ header {
 
 /** menu styles **/
 .navbar {
-    /* add background color here */
+    position: relative;
+    background-color: var(--menu-background-color);
+
     & ul {
         list-style-type: none;
         margin: 0;
@@ -35,18 +37,42 @@ header {
         padding: .25em 1em; /* changing padding values later */
         margin: .25em;
         text-decoration: none;
-        /* text color here */
+        color: white;
     }
 
     & a:hover, a:focus {
-        text-decoration: underline;
+        background-color: var(--menu-focus-color);
+        color: black;
     }
 }
 
 .menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    position: absolute;
+    left: 0;
+    display: none;
+    background-color: var(--menu-background-color);
+}
+
+#checkbox-toggle {
+    display: none;
+}
+
+.menu-btn {
+    display: block;
+    color: white;
+    padding: 0.25em 1em;
+}
+
+.menu-btn::after {
+    content: "\2630";
+}
+
+#checkbox-toggle:checked ~ .menu {
+    display: block;
+}
+
+#checkbox-toggle:checked ~ .menu-btn::after {
+    content: "\2716";
 }
 
 /* Base button class */
@@ -98,3 +124,20 @@ header {
 }
 
 .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+@media only screen and (min-width: 800px) {
+    .menu {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    .menu-btn {
+        display: none;
+    }
+
+    #checkbox-toggle:checked ~ .menu {
+        display: flex;
+    }
+}
