@@ -27,4 +27,14 @@
 		<p>You have done: </p>
 		<p>{{ stats.total_interviews }} interviews</p>
 	</div>
+
+	<div>
+		<p>The status of your {{ stats.total_applications }} applications:</p>
+		<p>Applied: {{ status_map.get('Applied', 0) }} </p>
+		<p>Screening: {{ status_map.get('Screening', 0) }} </p>
+		<p>Interview: {{ status_map.get('Interview', 0) }} </p>
+		<p>Offer: {{ status_map.get('Offer', 0) }} </p>
+		<p>Rejected: {{ status_map.get('Rejected', 0) }} </p>
+		<p>Withdrawn: {{ status_map.get('Withdrawn', 0) }} </p>
+	</div>
 {% endblock %}
