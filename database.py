@@ -159,7 +159,7 @@ def update_job(job_id, data):
 
         cursor.execute(update_job_query, (data.get('company_id'), data['job_title'], data.get('job_type'),
           data.get('salary_min') or None, data.get('salary_max') or None,
-          data.get('job_url'), data.get('date_posted') or None, requireds, job_id))
+          data.get('job_url') or None, data.get('date_posted') or None, requireds, job_id))
 
         connection.commit()
     
