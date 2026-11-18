@@ -838,7 +838,7 @@ def get_total_jobs():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        job_count_query = ('SELECT COUNT(*) FROM jobs')
+        job_count_query = ('SELECT COUNT(*) as c FROM jobs')
 
         cursor.execute(job_count_query)
 
@@ -870,7 +870,7 @@ def get_total_companies():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        company_count_query = ('SELECT COUNT(*) FROM companies')
+        company_count_query = ('SELECT COUNT(*) as c FROM companies')
 
         cursor.execute(company_count_query)
 
@@ -902,7 +902,7 @@ def get_total_applications():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        application_count_query = ('SELECT COUNT(*) FROM applications')
+        application_count_query = ('SELECT COUNT(*) as c FROM applications')
 
         cursor.execute(application_count_query)
 
@@ -934,7 +934,7 @@ def get_total_contacts():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        contact_count_query = ('SELECT COUNT(*) FROM contacts')
+        contact_count_query = ('SELECT COUNT(*) as c FROM contacts')
 
         cursor.execute(contact_count_query)
 
@@ -966,7 +966,7 @@ def get_applications_status_count():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        applications_status_count_query = ('SELECT status, COUNT(*) FROM applications GROUP BY status')
+        applications_status_count_query = ('SELECT status, COUNT(*) as count FROM applications GROUP BY status')
 
         cursor.execute(applications_status_count_query)
 
@@ -998,7 +998,7 @@ def get_jobs_type_count():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        jobs_type_count_query = ('SELECT job_type, COUNT(*) FROM jobs GROUP BY job_type')
+        jobs_type_count_query = ('SELECT job_type, COUNT(*) as count FROM jobs GROUP BY job_type')
 
         cursor.execute(jobs_type_count_query)
 
@@ -1068,7 +1068,7 @@ def get_offers_count():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        offers_count_query = ("SELECT COUNT(*) FROM applications WHERE status='Offer'")
+        offers_count_query = ("SELECT COUNT(*) as c FROM applications WHERE status='Offer'")
 
         cursor.execute(offers_count_query)
 
@@ -1100,7 +1100,7 @@ def get_interviews_count():
             return []
 
         cursor = connection.cursor(dictionary=True)
-        interviews_count_query = ("SELECT COUNT(*) FROM applications WHERE status='Interview'")
+        interviews_count_query = ("SELECT COUNT(*) as c FROM applications WHERE status='Interview'")
 
         cursor.execute(interviews_count_query)
 

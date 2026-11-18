@@ -29,20 +29,28 @@ def parse_json_app(req_json):
     except:
         return []
 
-def get_db():
-    return mysql.connector.connect(
-        host='localhost', user='root',
-        password='root', database='job_tracker'
-    )
-
 @app.route('/')
 def dashboard():
-    conn = get_db()
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute('SELECT COUNT(*) as count FROM applications')
-    stats = cursor.fetchone()
-    conn.close()
-    return render_template('dashboard.html', stats=stats)
+    stats = {}
+    stats['total_jobs'] = db.get_total_jobs()['c']
+    stats['total_companies'] = db.get_total_companies()['c']
+    stats['total_applications'] = db.get_total_applications()['c']
+    stats['total_contacts'] = db.get_total_contacts()['c']
+
+    stats['status_counts'] = db.get_applications_status_count()
+    stats['type_counts'] = db.get_jobs_type_count()
+
+    stats['recent_applications'] = db.get_recent_applications()
+
+    stats['total_offers'] = db.get_offers_count()
+    stats['total_interviews'] = db.get_interviews_count()
+
+    status_map = {s['status']: s['count'] for s in stats['status_counts']}
+    type_map = {t['job_type']: t['count'] for t in stats['type_counts']}
+
+    offers = db.get_all_offers()
+
+    return render_template('dashboard.html', stats=stats, status_map=status_map, type_map=type_map, offers=offers)
 
 @app.route('/jobs')
 def jobs():
