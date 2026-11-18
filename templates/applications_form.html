@@ -10,7 +10,7 @@
             <option value="">— Select Job —</option>
             {% for job in jobs %}
                 <option value="{{ job.job_id }}" 
-                    {% if application and application.job_id | string == job.job_id | string %}
+                    {% if application and application.job_id|string == job.job_id|string %}
                         selected
                     {% endif %}>
                     
@@ -22,7 +22,10 @@
         <label>Status</label>
         <select name="status">
             {% for status in ['Applied','Screening','Interview','Offer','Rejected','Withdrawn'] %}
-            <option value="{{ status }}">
+            <option value="{{ status }}" 
+                {% if application and application.status == status %}
+                    selected
+                {% endif %}>
                 {{ status }}
             </option>
             {% endfor %}
