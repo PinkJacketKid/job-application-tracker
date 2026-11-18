@@ -75,6 +75,18 @@ header {
     content: "\2716";
 }
 
+label {
+    display: block;
+}
+
+input, select, textarea, button {
+    font-size: inherit;
+}
+
+input, select, textarea {
+    width: 100%;
+}
+
 /* Base button class */
 .btn {
     cursor: pointer;
