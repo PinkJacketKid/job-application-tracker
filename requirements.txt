@@ -1,0 +1,16 @@
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
+import mysql.connector
+import database as db
+import json
+import os
+
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
+import mysql.connector
+import database as db
+import json
+import os
+
+user='root',
+password='root',
+host='127.0.0.2',
+database='job_tracker_project'
