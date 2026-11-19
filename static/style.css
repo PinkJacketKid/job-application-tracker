@@ -85,12 +85,30 @@ label {
     display: block;
 }
 
+label[for="cover_letter_sent"] {
+    display: inline;
+}
+
 input, select, textarea, button {
     font-size: inherit;
 }
 
-input, select, textarea {
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"], select, textarea {
     width: 100%;
+    margin-bottom: .5em;
+}
+
+input:required, input:invalid {
+	border: 2px solid red;
+}
+
+input:valid {
+	border: 1px solid black;
 }
 
 /* Base button class */
