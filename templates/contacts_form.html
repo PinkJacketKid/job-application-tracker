@@ -12,7 +12,7 @@
         <input type="text" name="title" value="{{ contact.title if contact else '' }}" placeholder="Recruiter">
 
         <label>Company</label>
-        <select name="company_id">
+        <select name="company_id" required>
             <option value="">— Select Company —</option>
             {% for company in companies %}
             <option value="{{ company.company_id }}" 
