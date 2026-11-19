@@ -1,6 +1,10 @@
 :root {
     --menu-background-color: black;
     --menu-focus-color: gray;
+    --btn-secondary-color: #0080FF;
+    --btn-secondary-accent: #00FFFF;
+    --btn-danger-color: #F4320B;
+    --btn-danger-accent: #FF5F6D;
 }
 
 * {
@@ -15,7 +19,7 @@ body {
     line-height: 1.5;
     width: 90%;
     margin: auto;
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 header {
@@ -113,10 +117,50 @@ input:valid {
 
 /* Base button class */
 .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
     cursor: pointer;
+    color: white;
+    background-color: blue;
+    /*font-weight: 600;*/
+    border-radius: 6px;
+    text-decoration: none;
+    /*border: 1px solid transparent;*/
+    /*width: 6em;
+    text-align: center;*/
+    &:hover {
+        color: black;
+        background-color: white;
+    }
 }
 
-/* Add the other button stylings later */
+.btn-primary {
+    background-color: forestgreen;
+    &:hover {
+        background-color: lightgreen;
+    }
+}
+
+.btn-secondary {
+    background-color: var(--btn-secondary-color);
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    padding: 2.5px 10px;
+
+    &:hover {
+        background-color: var(--btn-secondary-accent);
+    }
+}
+
+.btn-danger {
+    background-color: var(--btn-danger-color);
+    &:hover {
+        background-color: var(--btn-danger-accent);
+    }
+}
 
 /* Modal stylings */
 .modal-overlay {
