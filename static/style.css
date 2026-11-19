@@ -236,6 +236,37 @@ tbody td:first-child {
   padding: 3px 9px;
 }
 
+.match-result-card {
+  padding: 10px 24px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.match-rank {
+    font-size: 1.2em;
+}
+
+.match-info { flex: 1; }
+
+.match-percentage {
+    font-size: 1.2em;
+}
+
+.match-skills {
+    font-size: 1.2em;
+}
+
+.counts-display {
+    display: flex;
+    gap: 30px;
+
+    & div {
+        flex-basis: 17%;
+    }
+}
+
 @media only screen and (min-width: 800px) {
     /*body {
         width: min(90%, 1000px);

@@ -23,36 +23,38 @@
 		</span>
 	</h3>
 		{% for r in results %}
-		<!-- Rank -->
-		<div class="match-rank">#{{ loop.index }}</div>
-		<!-- Match info -->
-		<div class="match-info">
-			<div class="match-job-title">
-				{{ r.job.job_title }}
-				at
-				{{ r.job.company_name or 'Unknown Company' }}
+		<div class="match-result-card">
+			<!-- Rank -->
+			<div class="match-rank">#{{ loop.index }}</div>
+			<!-- Match info -->
+			<div class="match-info">
+				<div class="match-job-title">
+					{{ r.job.job_title }}
+					at
+					{{ r.job.company_name or 'Unknown Company' }}
+				</div>
+				
+				{% if r.matched %}
+				<div class="skill-chips">
+				Matched: 
+					{% for skill in r.matched %}
+						{{ skill }}{% if not loop.last %}, {% endif %}
+					{% endfor %}
+				</div>
+				{% endif %}
+				{% if r.missing %} 
+				<div class="skill-chips">
+				Missing:
+					{% for skill in r.missing %}
+						{{ skill }}{% if not loop.last %}, {% endif %}
+					{% endfor %}
+				</div>
+				{% endif %}
 			</div>
 			<div class="match-percentage">
 				{{ r.match_percentage }}%
 			</div>
-			<div>({{ r.matched_count }}/{{ r.total_count }} skills)</div>
-			
-			{% if r.matched %}
-			<div class="skill-chips">
-			Matched: 
-				{% for skill in r.matched %}
-					{{ skill }}{% if not loop.last %}, {% endif %}
-				{% endfor %}
-			</div>
-			{% endif %}
-			{% if r.missing %} 
-			<div class="skill-chips">
-			Missing:
-				{% for skill in r.missing %}
-					{{ skill }}{% if not loop.last %}, {% endif %}
-				{% endfor %}
-			</div>
-			{% endif %}
+			<div class="match-skills">({{ r.matched_count }}/{{ r.total_count }} skills)</div>
 		</div>
 		{% endfor %}
 	{% elif not results %}

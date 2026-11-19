@@ -3,29 +3,31 @@
 {% block page_title %}<h1>Dashboard</h1>{% endblock %}
 
 {% block content %}
-	<div>
-		<p>You have applied to: </p>
-		<p>{{ stats.total_jobs }} jobs</p>
-	</div>
-	<div>
-		<p>You have applied to: </p>
-		<p>{{ stats.total_companies }} companies</p>
-	</div>
-	<div>
-		<p>You have: </p>
-		<p>{{ stats.total_applications }} applications</p>
-	</div>
-	<div>
-		<p>You have: </p>
-		<p>{{ stats.total_contacts }} contacts</p>
-	</div>
-	<div>
-		<p>You have: </p>
-		<p>{{ stats.total_offers }} offers</p>
-	</div>
-	<div>
-		<p>You have done: </p>
-		<p>{{ stats.total_interviews }} interviews</p>
+	<div class="counts-display">
+		<div>
+			<p>You have applied to: </p>
+			<p>{{ stats.total_jobs }} jobs</p>
+		</div>
+		<div>
+			<p>You have applied to: </p>
+			<p>{{ stats.total_companies }} companies</p>
+		</div>
+		<div>
+			<p>You have: </p>
+			<p>{{ stats.total_applications }} applications</p>
+		</div>
+		<div>
+			<p>You have: </p>
+			<p>{{ stats.total_contacts }} contacts</p>
+		</div>
+		<div>
+			<p>You have: </p>
+			<p>{{ stats.total_offers }} offers</p>
+		</div>
+		<div>
+			<p>You have done: </p>
+			<p>{{ stats.total_interviews }} interviews</p>
+		</div>
 	</div>
 
 	<div>
