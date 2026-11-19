@@ -267,6 +267,21 @@ tbody td:first-child {
     }
 }
 
+.status-display {
+    display: flex;
+    gap: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    & div {
+        flex-basis: 50%;
+    }
+}
+
+.offers-display {
+    padding-bottom: 10px;
+}
+
 @media only screen and (min-width: 800px) {
     /*body {
         width: min(90%, 1000px);
