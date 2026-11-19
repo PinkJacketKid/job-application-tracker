@@ -223,6 +223,12 @@ tbody td:first-child {
     text-align: center;
 }
 
+.td-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
 @media only screen and (min-width: 800px) {
     /*body {
         width: min(90%, 1000px);
