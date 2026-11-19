@@ -58,7 +58,7 @@
 							<div>{{ app.company_name or '—' }}</div>
 						</td>
           				<td>
-            				<span class="badge badge-{{ app.status.lower() }}">{{ app.status }}</span>
+            				<span class="badge">{{ app.status }}</span>
           				</td>
           				<td>
             				{{ app.application_date.strftime('%b %d') if app.application_date else '—' }}

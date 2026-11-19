@@ -17,9 +17,11 @@
 {% if user_skills %}
 	{% if results %}
 	<h2>Matching Jobs</h2>
-	<span class="badge badge-neutral">
-		{{ results|length }} found
-	</span>
+	<h3>
+		<span class="badge">
+			{{ results|length }} found
+		</span>
+	</h3>
 		{% for r in results %}
 		<!-- Rank -->
 		<div class="match-rank">#{{ loop.index }}</div>
