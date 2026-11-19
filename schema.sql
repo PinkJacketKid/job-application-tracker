@@ -57,18 +57,18 @@ INSERT INTO companies (company_name, industry, website, city, state) VALUES
 
 INSERT INTO jobs (company_id, job_title, job_type, salary_min, salary_max, date_posted, requirements) VALUES
 (1, 'Software Developer', 'Full-time', 70000, 90000, '2025-01-15', '["Python", "SQL", "Flask"]'),
-(1, 'Database Administrator', 'Full-time', 75000, 95000, '2025-01-10', '["Python", "SQL"]'),
-(2, 'Data Analyst', 'Full-time', 65000, 85000, '2025-01-12', '["Python", "SQL", "Tableau"]'),
+(1, 'Database Administrator', 'Part-time', 75000, 95000, '2025-01-10', '["Python", "SQL"]'),
+(2, 'Data Analyst', 'Part-time', 65000, 85000, '2025-01-12', '["Python", "SQL", "Tableau"]'),
 (3, 'Cloud Engineer', 'Full-time', 80000, 100000, '2025-01-08', '["Python", "SQL", "Docker"]'),
-(4, 'Junior Developer', 'Full-time', 55000, 70000, '2025-01-14', '["Python", "SQL", "Java"]'),
+(4, 'Junior Developer', 'Contract', 55000, 70000, '2025-01-14', '["Python", "SQL", "Java"]'),
 (4, 'Senior Developer', 'Full-time', 95000, 120000, '2025-01-14', '["Python", "SQL", "Java", "Go"]'),
-(5, 'ML Engineer', 'Full-time', 90000, 115000, '2025-01-11', '["Python", "SQL", "Git"]');
+(5, 'ML Engineer', 'Internship', 90000, 115000, '2025-01-11', '["Python", "SQL", "Git"]');
 
 INSERT INTO applications (job_id, application_date, status, resume_version, cover_letter_sent) VALUES
 (1, '2025-01-16', 'Applied', 'v2.1', TRUE),
 (3, '2025-01-13', 'Interview', 'v2.1', TRUE),
 (4, '2025-01-09', 'Rejected', 'v2.0', FALSE),
-(5, '2025-01-15', 'Applied', 'v2.1', TRUE),
+(5, '2025-01-15', 'Offer', 'v2.1', TRUE),
 (7, '2025-01-12', 'Screening', 'v2.1', TRUE);
 
 -- Adding interview data
