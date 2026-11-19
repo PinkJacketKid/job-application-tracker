@@ -162,6 +162,9 @@ input:valid {
     }
 }
 
+.btn-sm { padding: 5px 10px; font-size: 0.75em; }
+.btn-secondary.btn-sm { padding: 2.8px 10px; }
+
 /* Modal stylings */
 .modal-overlay {
     /* need to add background color */
